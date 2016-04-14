@@ -1,0 +1,22 @@
+#! /bin/sh
+
+# disable wake on XHC1
+
+DEVICE=XHC1
+
+if ! grep "^$DEVICE" /proc/acpi/wakeup > /dev/null ; then
+  exit 0
+fi
+
+case $1 in
+  suspend|suspend_hybrid|hibernate)
+    if grep "^$DEVICE" /proc/acpi/wakeup  | grep enabled > /dev/null ; then
+      echo "$DEVICE" > /proc/acpi/wakeup
+    fi
+    ;;
+  resume|thaw)
+    if grep "^$DEVICE" /proc/acpi/wakeup  | grep disabled > /dev/null ; then
+      echo "$DEVICE" > /proc/acpi/wakeup
+    fi
+    ;;
+esac

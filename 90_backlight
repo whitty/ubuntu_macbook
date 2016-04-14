@@ -1,0 +1,35 @@
+#!/bin/sh
+
+if [ ! -f /sys/class/backlight/gmux_backlight/brightness ]; then
+  exit 0
+fi
+
+backlight_powersave() {
+  current=`cat /sys/class/backlight/gmux_backlight/actual_brightness`
+  if [ "$current" -gt 800 ]; then
+    setpci -v -H1 -s 00:01.00 BRIDGE_CONTROL=0
+  fi
+  current=`cat /sys/class/backlight/gmux_backlight/actual_brightness`
+  if [ "$current" -gt 800 ]; then
+    echo "Failed to enable backlight"
+    return 1
+  else
+    case $1 in
+      off)
+        echo 550 > /sys/class/backlight/gmux_backlight/brightness
+        ;;
+      on)
+        echo 300 > /sys/class/backlight/gmux_backlight/brightness
+        ;;
+    esac
+  fi
+}
+
+
+case $1 in
+    true) backlight_powersave on ;;
+    false) backlight_powersave off ;;
+    *) exit $NA ;;
+esac
+
+exit 0

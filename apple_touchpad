@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/synclient "RightButtonAreaLeft=1592" "RightButtonAreaTop=4569"  MiddleButtonAreaRight=1591 MiddleButtonAreaLeft=-1153 MiddleButtonAreaTop=4569
