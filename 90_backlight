@@ -8,6 +8,7 @@ backlight_powersave() {
   current=`cat /sys/class/backlight/gmux_backlight/actual_brightness`
   if [ "$current" -gt 800 ]; then
     setpci -v -H1 -s 00:01.00 BRIDGE_CONTROL=0
+    echo 550 > /sys/class/backlight/gmux_backlight/brightness
   fi
   current=`cat /sys/class/backlight/gmux_backlight/actual_brightness`
   if [ "$current" -gt 800 ]; then
