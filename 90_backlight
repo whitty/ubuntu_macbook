@@ -17,10 +17,10 @@ backlight_powersave() {
   else
     case $1 in
       off)
-        echo 550 > /sys/class/backlight/gmux_backlight/brightness
+        echo 500 > /sys/class/backlight/gmux_backlight/brightness
         ;;
       on)
-        echo 300 > /sys/class/backlight/gmux_backlight/brightness
+        echo 250 > /sys/class/backlight/gmux_backlight/brightness
         ;;
     esac
   fi
